@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 1 Month Anniversary 💖</title>
+    <title>Happy Anniversary 💖</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
 
@@ -20,6 +20,44 @@
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             font-family: 'Sarabun', sans-serif;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* 🌸 อนิเมชันพื้นหลังหัวใจลอย */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-particle {
+            position: absolute;
+            bottom: -30px;
+            font-size: 24px;
+            opacity: 0;
+            animation: floatUp 6s ease-in forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ☁️ เอฟเฟกต์การ์ดลอยไปมาเบาๆ */
+        .float-wrapper {
+            animation: hoverCard 4s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes hoverCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
 
         .card-wrapper {
@@ -39,7 +77,7 @@
                 transform: scale(0.85);
             }
             .card-wrapper.is-open {
-                transform: translateX(105px) scale(0.7); /* ปรับขยับให้อยู่ตรงกลาง */
+                transform: translateX(105px) scale(0.7);
             }
         }
 
@@ -49,7 +87,7 @@
                 transform: scale(0.9);
             }
             .card-wrapper.is-open {
-                transform: translateX(85px) scale(0.55); /* ปรับขยับให้อยู่ตรงกลางเป๊ะๆ บนมือถือ */
+                transform: translateX(85px) scale(0.55);
             }
         }
 
@@ -70,26 +108,83 @@
             background: #ffffff;
             border-radius: 10px;
             box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
-            padding: 40px 25px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             text-align: center;
             z-index: 1;
+            overflow: hidden;
+        }
+
+        /* การสลับหน้ากระดาษและรูปภาพ */
+        .page-content {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .page-content.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .card-inside-right h2 {
             color: #ff5e7e;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 22px;
         }
 
         .card-inside-right p {
             color: #555;
-            line-height: 1.7;
+            line-height: 1.6;
             font-size: 15px;
             margin-bottom: 10px;
+        }
+
+        /* แผงปุ่มนำทาง */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+            border-top: 1px dashed #ffe6ea;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 94, 126, 0.3);
+            transition: all 0.3s ease;
+            width: 48%;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 94, 126, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #e0e0e0;
+            box-shadow: none;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* ส่วนของปก */
@@ -131,8 +226,8 @@
         }
 
         .card-front h1 {
-            font-size: 28px;
-            margin: 10px 0;
+            font-size: 26px;
+            margin: 5px 0;
             font-weight: 600;
         }
 
@@ -143,9 +238,9 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(255,255,255,0.6)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
         }
 
         .hint {
@@ -170,6 +265,7 @@
 
         /* ดีไซน์กรอบรูปโพลาลอยด์ */
         .photo-frame {
+            display: none; /* ซ่อนไว้ก่อน จะแสดงเฉพาะหน้าที่ active */
             width: 100%;
             height: 100%;
             background: #fff;
@@ -177,9 +273,13 @@
             padding-bottom: 45px;
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            display: flex;
             flex-direction: column;
             position: relative;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .photo-frame.active {
+            display: flex;
         }
 
         .photo-frame img {
@@ -203,57 +303,134 @@
 </head>
 <body>
 
+    <div class="particles-container" id="particles"></div>
+
     <audio id="bgMusic" loop>
         <source src="bae.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="card-wrapper" id="cardWrapper">
-        <div class="card-container">
-            
-            <div class="card-inside-right">
-                <h2>สุขสันต์วันครบรอบ 1 เดือน</h2>
-                <p>ขอบคุณที่เข้ามาเป็นความน่ารัก<br>และรอยยิ้มให้กันในทุกๆ วันนะ</p>
-                <p>ถึงจะเป็นช่วงเวลาสั้นๆ<br>แต่สำหรับเค้ามีอะไรเยอะแยะที่เข้ามาในชีวิตมากเลย</p>
-                <p>อยู่เป็นกำลังใจให้กันแบบนี้<br>ไปนานๆเลยนะคับ เด่กดื้อของเค้า</p>
-                <br>
-                <p style="font-weight: 600; color: #ff5e7e;">รักนะค้าบ 💖</p>
-            </div>
-
-            <div class="card-cover">
-                <div class="card-front">
-                    <div class="heart">💝</div>
-                    <h1>Happy</h1>
-                    <h1>1st Month</h1>
-                    <div class="hint">แตะเพื่อเปิดการ์ด 💌</div>
-                </div>
+    <div class="float-wrapper">
+        <div class="card-wrapper" id="cardWrapper">
+            <div class="card-container">
                 
-                <div class="card-back">
-                    <div class="photo-frame">
-                        <img src="AW.jpg" alt="Our Memory">
-                        <div class="photo-caption">You & Me</div>
+                <div class="card-inside-right">
+                    
+                    <div id="page1" class="page-content active">
+                        <h2>ครบรอบ 1 เดือน</h2>
+                        <p>ขอบคุณที่เข้ามาเป็นความน่ารัก<br>และรอยยิ้มให้กันในทุกๆวันนะ</p>
+                        <p>ถึงจะเป็นช่วงเวลาสั้นๆ<br>แต่สำหรับเค้ามีอะไรเยอะแยะ<br>ที่เข้ามาในชีวิตมากเลย</p>
+                        <p style="font-weight: 600; color: #ff5e7e;">รักนะค้าบ 💖</p>
+                    </div>
+
+                    <div id="page2" class="page-content">
+                        <h2>เข้าเดือนที่ 2 แล้วนะ</h2>
+                        <p>เวลาผ่านไปไวมากๆ เลย<br>แต่ความรู้สึกดีๆ ยังเหมือนเดิมเลยนะ</p>
+                        <p>ถึงช่วงนี้เราอาจจะคุยกันน้อยลง<br>แต่ความรู้สึกของเค้ายังเหมือนเดิมเลยนะ</p>
+                        <p>อยู่เป็นกำลังใจให้กันแบบนี้<br>ไปนานๆเลยนะคับ เด่กดื้อของเค้า</p>
+                        <p style="font-weight: 600; color: #ff5e7e;">เค้ารักเธอมากเลยนะ 💕</p>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button id="btnBack" class="nav-btn" disabled onclick="switchPage('page1', event)">👈 ย้อนกลับ</button>
+                        <button id="btnNext" class="nav-btn" onclick="switchPage('page2', event)">หน้าถัดไป 👉</button>
+                    </div>
+
+                </div>
+
+                <div class="card-cover">
+                    <div class="card-front">
+                        <div class="heart">💝</div>
+                        <h1>Happy</h1>
+                        <h1>Anniversary</h1>
+                        <div class="hint">แตะเพื่อเปิดการ์ด 💌</div>
+                    </div>
+                    
+                    <div class="card-back">
+                        
+                        <div id="photoPage1" class="photo-frame active">
+                            <img src="AW.jpg" alt="Our Memory">
+                            <div class="photo-caption">You & Me</div>
+                        </div>
+
+                        <div id="photoPage2" class="photo-frame">
+                            <img src="month2.jpg" alt="2nd Month">
+                            <div class="photo-caption">Love  ✨</div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 
     <script>
         const cardWrapper = document.getElementById('cardWrapper');
         const bgMusic = document.getElementById('bgMusic');
+        const btnBack = document.getElementById('btnBack');
+        const btnNext = document.getElementById('btnNext');
 
-        // ฟังก์ชันเมื่อกดคลิกที่การ์ด
-        cardWrapper.addEventListener('click', () => {
-            // สลับสถานะเปิด-ปิดการ์ด
+        // ฟังก์ชันเปิด/ปิด การ์ด
+        cardWrapper.addEventListener('click', (e) => {
+            if(e.target.tagName === 'BUTTON') return;
+
             cardWrapper.classList.toggle('is-open');
 
-            // ตรวจสอบว่าเปิดการ์ดอยู่หรือไม่ ถ้าเปิดให้เล่นเพลง ถ้าปิดให้หยุดเพลง
             if (cardWrapper.classList.contains('is-open')) {
                 bgMusic.play().catch(error => console.log("รอให้ผู้ใช้คลิกก่อนเล่นเพลง"));
             } else {
                 bgMusic.pause();
             }
         });
+
+        // ฟังก์ชันสลับหน้าข้อความและรูปภาพ
+        function switchPage(targetPage, event) {
+            event.stopPropagation();
+            
+            // 1. ซ่อนข้อความและรูปภาพทั้งหมดก่อน
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.querySelectorAll('.photo-frame').forEach(photo => {
+                photo.classList.remove('active');
+            });
+            
+            // 2. แสดงข้อความหน้าที่เลือก
+            document.getElementById(targetPage).classList.add('active');
+
+            // 3. แสดงรูปภาพให้ตรงกับหน้า และจัดการปุ่ม
+            if(targetPage === 'page1') {
+                document.getElementById('photoPage1').classList.add('active');
+                btnBack.disabled = true;
+                btnNext.disabled = false;
+            } else if (targetPage === 'page2') {
+                document.getElementById('photoPage2').classList.add('active');
+                btnBack.disabled = false;
+                btnNext.disabled = true;
+            }
+        }
+
+        // ฟังก์ชันสร้างอนิเมชันหัวใจ
+        function createParticle() {
+            const container = document.getElementById('particles');
+            const particle = document.createElement('div');
+            particle.classList.add('floating-particle');
+            
+            const emojis = ['💖', '✨', '🌸', '💕', '🥰'];
+            particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = (Math.random() * 3 + 5) + 's'; 
+            particle.style.fontSize = (Math.random() * 15 + 15) + 'px'; 
+
+            container.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        setInterval(createParticle, 600);
     </script>
 
 </body>
